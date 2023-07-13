@@ -1,4 +1,4 @@
-package ch.axa.rest;
+package ch.axa.rest.security;
 
 public class HashCode {
     public static String generateHashCode(String input) {
