@@ -50,13 +50,13 @@ public class TestDataLoader implements ApplicationRunner {
         Booking booking1 = new Booking();
         booking1.setDate(LocalDate.now());
         booking1.setPartOfDay("day");
-        booking1.setAccepted(true);
+        booking1.setStatus("pending");
         booking1.setUser(user1);
 
         Booking booking2 = new Booking();
         booking2.setDate(LocalDate.now());
         booking2.setPartOfDay("morning");
-        booking2.setAccepted(false);
+        booking2.setStatus("accepted");
         booking2.setUser(user2);
 
         bookingRepository.save(booking1);

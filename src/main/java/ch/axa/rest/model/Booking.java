@@ -20,7 +20,7 @@ public class Booking {
 
     private LocalDate date;
     private String partOfDay;
-    private boolean accepted;
+    private String status;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

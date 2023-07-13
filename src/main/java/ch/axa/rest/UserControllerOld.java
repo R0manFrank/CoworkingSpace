@@ -17,14 +17,14 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-public class UserController {
-    private static final Logger log = LoggerFactory.getLogger(UserController.class);
+public class UserControllerOld {
+    private static final Logger log = LoggerFactory.getLogger(UserControllerOld.class);
 
     // @Autowired
     private final UserRepository userRepository;
 
 
-    public UserController(UserRepository userRepository) {
+    public UserControllerOld(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
