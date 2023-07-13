@@ -1,7 +1,6 @@
-package ch.axa.rest.model;
+package ch.axa.rest.modelOld;
 
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 

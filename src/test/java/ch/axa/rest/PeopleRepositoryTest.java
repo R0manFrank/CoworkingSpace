@@ -1,8 +1,8 @@
 package ch.axa.rest;
 
 
-import ch.axa.rest.model.Task;
-import ch.axa.rest.model.TaskRepositoryMock;
+import ch.axa.rest.modelOld.Task;
+import ch.axa.rest.modelOld.TaskRepositoryMock;
 import org.junit.Before;
 import org.junit.Test;
 

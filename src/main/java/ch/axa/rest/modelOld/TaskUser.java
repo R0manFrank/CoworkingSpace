@@ -1,4 +1,4 @@
-package ch.axa.rest.model;
+package ch.axa.rest.modelOld;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

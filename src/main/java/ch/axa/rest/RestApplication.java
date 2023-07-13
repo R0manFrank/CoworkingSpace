@@ -1,9 +1,9 @@
 package ch.axa.rest;
 
-import ch.axa.rest.model.Task;
-import ch.axa.rest.model.TaskRepository;
-import ch.axa.rest.model.TaskUser;
-import ch.axa.rest.model.UserRepository;
+import ch.axa.rest.modelOld.Task;
+import ch.axa.rest.modelOld.TaskRepository;
+import ch.axa.rest.modelOld.TaskUser;
+import ch.axa.rest.modelOld.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;

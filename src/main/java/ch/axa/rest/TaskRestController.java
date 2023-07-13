@@ -1,9 +1,8 @@
 package ch.axa.rest;
 
-import ch.axa.rest.model.Task;
-import ch.axa.rest.model.TaskRepository;
-import ch.axa.rest.model.TaskRepositoryMock;
-import org.springframework.beans.factory.annotation.Autowired;
+import ch.axa.rest.modelOld.Task;
+import ch.axa.rest.modelOld.TaskRepository;
+import ch.axa.rest.modelOld.TaskRepositoryMock;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
