@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:8080")
 public class UserController {
 
     private final UserService userService;
@@ -58,6 +59,16 @@ public class UserController {
         boolean deleted = userService.deleteMember(userId);
         if (deleted) {
             return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping("/members/{userId}/phone")
+    public ResponseEntity<User> updatePhoneNumber(@PathVariable Long userId, @RequestBody String phoneNumber) {
+        User updatedMember = userService.updatePhoneNumber(userId, phoneNumber);
+        if (updatedMember != null) {
+            return ResponseEntity.ok(updatedMember);
         } else {
             return ResponseEntity.notFound().build();
         }

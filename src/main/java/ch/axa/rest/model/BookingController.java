@@ -3,6 +3,12 @@ package ch.axa.rest.model;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+
+@RestController
+@RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:8080")
 public class BookingController {
 
     private final BookingService bookingService;
@@ -12,8 +18,8 @@ public class BookingController {
     }
 
     @GetMapping("/admin/bookings")
-    public ResponseEntity<String> getBookingRequests() {
-        String bookingRequests = bookingService.getBookingRequests();
+    public ResponseEntity<List<Booking>> getBookingRequests() {
+        List<Booking> bookingRequests = bookingService.getBookingRequests();
         return ResponseEntity.ok(bookingRequests);
     }
 
@@ -37,16 +43,6 @@ public class BookingController {
         }
     }
 
-    @PutMapping("/members/{userId}/phone")
-    public ResponseEntity<User> updatePhoneNumber(@PathVariable Long userId, @RequestBody String phoneNumber) {
-        User updatedMember = bookingService.updatePhoneNumber(userId, phoneNumber);
-        if (updatedMember != null) {
-            return ResponseEntity.ok(updatedMember);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
     @GetMapping("/members/{userId}/bookings/count")
     public ResponseEntity<Integer> getBookingCount(@PathVariable Long userId) {
         int bookingCount = bookingService.getBookingCount(userId);
@@ -54,8 +50,8 @@ public class BookingController {
     }
 
     @GetMapping("/members/{userId}/bookings")
-    public ResponseEntity<String> getBookings(@PathVariable Long userId) {
-        String bookings = bookingService.getBookings(userId);
+    public ResponseEntity<List<Booking>> getBookings(@PathVariable Long userId) {
+        List<Booking> bookings = bookingService.getBookings(userId);
         return ResponseEntity.ok(bookings);
     }
 
