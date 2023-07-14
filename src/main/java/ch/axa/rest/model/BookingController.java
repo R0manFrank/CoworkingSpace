@@ -1,5 +1,6 @@
 package ch.axa.rest.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,9 +11,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:3000")
 public class BookingController {
 
+    @Autowired
     private final BookingService bookingService;
 
     public BookingController(BookingService bookingService) {
@@ -47,14 +49,21 @@ public class BookingController {
 
     @GetMapping("/members/{userId}/bookings/count")
     public ResponseEntity<Integer> getBookingCount(@PathVariable Long userId) {
-        int bookingCount = bookingService.getBookingCount(userId);
-        return ResponseEntity.ok(bookingCount);
+        Integer bookingCount = bookingService.getBookingCount(userId);
+        if (bookingCount != null){
+            return ResponseEntity.ok(bookingCount);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     @GetMapping("/members/{userId}/bookings")
     public ResponseEntity<List<Booking>> getBookings(@PathVariable Long userId) {
         List<Booking> bookings = bookingService.getBookings(userId);
-        return ResponseEntity.ok(bookings);
+        if (bookings != null){
+            return ResponseEntity.status(HttpStatus.OK).body(bookings);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
     }
 
     @DeleteMapping("/members/{userId}/bookings/{bookingId}")

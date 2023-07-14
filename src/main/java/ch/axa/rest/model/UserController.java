@@ -1,15 +1,17 @@
 package ch.axa.rest.model;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
 
+    @Autowired
     private final UserService userService;
 
     public UserController(UserService userService) {
@@ -18,6 +20,9 @@ public class UserController {
 
     @PostMapping("/users")
     public ResponseEntity<User> registerUser(@RequestBody User user) {
+        if (user.getName() == null || user.getLastname() == null || user.getPassword() == null || user.getEmail() == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(user);
+        }
         User createdUser = userService.registerUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
@@ -35,7 +40,7 @@ public class UserController {
     @GetMapping("/admin/changes")
     public ResponseEntity<String> getChanges() {
         String changes = userService.getChanges();
-        return ResponseEntity.ok(changes);
+        return ResponseEntity.status(HttpStatus.OK).body(changes);
     }
 
     @PostMapping("/admin/users")

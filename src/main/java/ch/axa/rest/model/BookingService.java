@@ -1,10 +1,14 @@
 package ch.axa.rest.model;
 
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
 import static ch.axa.rest.model.UserService.changes;
 
+@Service
 public class BookingService {
 
     private final UserRepository userRepository;
@@ -42,14 +46,14 @@ public class BookingService {
 
     }
 
-    public int getBookingCount(Long userId) {
+    public Integer getBookingCount(Long userId) {
         Optional<User> optionalUser = userRepository.findById(userId);
         if (optionalUser.isPresent()){
             User user = optionalUser.get();
             int count = user.getBookings().size();
             return count;
         }
-        return 0;
+        return null;
     }
 
     public List<Booking> getBookings(Long userId) {

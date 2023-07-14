@@ -1,9 +1,12 @@
 package ch.axa.rest.model;
 
+import org.springframework.stereotype.Service;
+
 import java.util.Optional;
 
 import static ch.axa.rest.security.HashCode.generateHashCode;
 
+@Service
 public class UserService {
 
     private final UserRepository userRepository;
@@ -17,6 +20,12 @@ public class UserService {
 
     public User registerUser(User user) {
         user.setPassword(generateHashCode(user.getPassword()));
+        if (userRepository.findAll().size() <= 1){
+            user.setRole("admin");
+        }
+        else{
+            user.setRole("member");
+        }
         userRepository.save(user);
         changes = changes + ("Registered User " + user.getName() + " " + user.getLastname() + "\n");
         return user;

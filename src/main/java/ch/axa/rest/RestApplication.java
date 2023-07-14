@@ -60,62 +60,6 @@ public class RestApplication {
             bookingRepository.save(booking1);
             bookingRepository.save(booking2);
 
-            /*
-
-
-            // fetch all tasks
-            log.info("Products found with findAll()");
-            log.info("----------------------------");
-            for (Task task : repository.findAll()) {
-                log.info(task.toString());
-            }
-            log.info("end findAll()");
-            // fetch an individual product by Id
-            repository.findById(1L)
-                    .ifPresent(product -> {
-                        log.info("Product find with findById(1L)");
-                        log.info("------------------------------");
-                        log.info(product.toString());
-                        log.info("");
-                    });
-            // fetch products by name
-			log.info("Product found by Name ('Couch Sofia')");
-			log.info("-------------------------------------");
-			repository.findByName("Couch Sofia").forEach(couch ->    {
-				log.info(couch.toString());
-			});
-			for (Product couch : repository.findByName("Couch Sofia")) {
-				log.info(couch.toString());
-			}
-            log.info("");
-
-
-
-            // save a couple of users
-
-            userRepository.save(new TaskUser(1, "user1", HashCode.generateHashCode("123")));
-            userRepository.save(new TaskUser(2, "user2", HashCode.generateHashCode("123")));
-            userRepository.save(new TaskUser(3, "user3", HashCode.generateHashCode("123")));
-            userRepository.save(new TaskUser(4, "admin", HashCode.generateHashCode("123")));
-
-            // fetch all users
-            log.info("Users found with findAll()");
-            log.info("----------------------------");
-            for (TaskUser user : userRepository.findAll()) {
-                log.info(user.toString());
-            }
-            log.info("end findAll()");
-            // fetch an individual product by Id
-            userRepository.findById(1L)
-                    .ifPresent(user -> {
-                        log.info("User find with findById(1L)");
-                        log.info("------------------------------");
-                        log.info(user.toString());
-                        log.info("");
-                    });
-
-             */
-
         };
     }
 
