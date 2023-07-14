@@ -76,4 +76,48 @@ public class BookingService {
         }
         return false;
     }
+
+    public Booking requestBooking(Booking booking) {
+        booking.setStatus("pending");
+        bookingRepository.save(booking);
+        changes = changes + ("Booking with ID " + booking.getId() + " was added for request \n");
+        return booking;
+    }
+
+    public Booking createBooking(Booking booking) {
+        bookingRepository.save(booking);
+        changes = changes + ("Admin created Booking with ID " + booking.getId() + "\n");
+        return booking;
+    }
+
+    public Booking updateBooking(Long bookingId, Booking booking) {
+        Optional<Booking> optionalBooking = bookingRepository.findById(bookingId);
+        if (optionalBooking.isPresent()){
+            Booking dbBooking = optionalBooking.get();
+            if (booking.getDate() != null){
+                dbBooking.setDate(booking.getDate());
+            }
+            if (booking.getPartOfDay() != null){
+                dbBooking.setPartOfDay(booking.getPartOfDay());
+            }
+            if (booking.getUser() != null){
+                dbBooking.setUser(booking.getUser());
+            }
+            changes = changes + ("Admin edited Booking with ID " + bookingId + "\n");
+            return dbBooking;
+        }
+        return null;
+    }
+
+    public boolean deleteBooking(Long bookingId) {
+        Optional<Booking> optionalBooking = bookingRepository.findById(bookingId);
+        if (optionalBooking.isPresent()){
+            Booking booking = optionalBooking.get();
+            bookingRepository.delete(booking);
+            changes = changes + ("Admin deleted Booking with ID " + bookingId + "\n");
+            return true;
+        }
+        return false;
+
+    }
 }

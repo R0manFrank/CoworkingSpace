@@ -1,8 +1,10 @@
 package ch.axa.rest.model;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -59,6 +61,38 @@ public class BookingController {
     public ResponseEntity<Void> cancelBooking(@PathVariable Long userId, @PathVariable Long bookingId) {
         boolean canceled = bookingService.cancelBooking(userId, bookingId);
         if (canceled) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/member/{userId}/bookings/create")
+    public ResponseEntity<Booking> requestBooking(@RequestBody Booking booking) {
+        Booking createdBooking = bookingService.requestBooking(booking);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdBooking);
+    }
+
+    @PostMapping("/admin/bookings")
+    public ResponseEntity<Booking> createBooking(@RequestBody Booking booking) {
+        Booking createdBooking = bookingService.createBooking(booking);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdBooking);
+    }
+
+    @PutMapping("/admin/bookings/{bookingId}")
+    public ResponseEntity<Booking> updateBooking(@PathVariable Long bookingId, @RequestBody Booking booking) {
+        Booking updatedBooking = bookingService.updateBooking(bookingId, booking);
+        if (updatedBooking != null) {
+            return ResponseEntity.ok(updatedBooking);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/admin/bookings/{bookingId}")
+    public ResponseEntity<Void> deleteBooking(@PathVariable Long bookingId) {
+        boolean deleted = bookingService.deleteBooking(bookingId);
+        if (deleted) {
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();
