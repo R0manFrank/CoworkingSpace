@@ -19,18 +19,18 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<User> registerUser(@RequestBody User user) {
-        if (user.getName() == null || user.getLastname() == null || user.getPassword() == null || user.getEmail() == null){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(user);
+    public ResponseEntity<CoUser> registerUser(@RequestBody CoUser coUser) {
+        if (coUser.getName() == null || coUser.getLastname() == null || coUser.getPassword() == null || coUser.getEmail() == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(coUser);
         }
-        User createdUser = userService.registerUser(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
+        CoUser createdCoUser = userService.registerUser(coUser);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdCoUser);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestBody User user) {
-        if (userService.authenticateUser(user)) {
-            String authToken = userService.generateAuthToken(user.getEmail());
+    public ResponseEntity<String> loginUser(@RequestBody CoUser coUser) {
+        if (userService.authenticateUser(coUser)) {
+            String authToken = userService.generateAuthToken(coUser.getEmail());
             return ResponseEntity.ok(authToken);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
@@ -44,14 +44,14 @@ public class UserController {
     }
 
     @PostMapping("/admin/users")
-    public ResponseEntity<User> createMember(@RequestBody User user) {
-        User createdMember = userService.createMember(user);
+    public ResponseEntity<CoUser> createMember(@RequestBody CoUser coUser) {
+        CoUser createdMember = userService.createMember(coUser);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdMember);
     }
 
     @PutMapping("/admin/users/{userId}")
-    public ResponseEntity<User> updateMember(@PathVariable Long userId, @RequestBody User user) {
-        User updatedMember = userService.updateMember(userId, user);
+    public ResponseEntity<CoUser> updateMember(@PathVariable Long userId, @RequestBody CoUser coUser) {
+        CoUser updatedMember = userService.updateMember(userId, coUser);
         if (updatedMember != null) {
             return ResponseEntity.ok(updatedMember);
         } else {
@@ -70,8 +70,8 @@ public class UserController {
     }
 
     @PutMapping("/members/{userId}/phone")
-    public ResponseEntity<User> updatePhoneNumber(@PathVariable Long userId, @RequestBody String phoneNumber) {
-        User updatedMember = userService.updatePhoneNumber(userId, phoneNumber);
+    public ResponseEntity<CoUser> updatePhoneNumber(@PathVariable Long userId, @RequestBody String phoneNumber) {
+        CoUser updatedMember = userService.updatePhoneNumber(userId, phoneNumber);
         if (updatedMember != null) {
             return ResponseEntity.ok(updatedMember);
         } else {

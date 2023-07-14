@@ -2,6 +2,7 @@ package ch.axa.rest.security;
 
 
 
+import ch.axa.rest.model.CoUser;
 import ch.axa.rest.model.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -22,14 +23,14 @@ public class TasksUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-       final ch.axa.rest.model.User cinemaUser = userRepository.findByName(username).get();
-       if (cinemaUser == null) {
+       final CoUser cinemaCoUser = userRepository.findByName(username).get();
+       if (cinemaCoUser == null) {
            throw new UsernameNotFoundException(username);
        }
        UserDetails user = User
-               .withUsername(cinemaUser.getName())
-               .password(cinemaUser.getPassword())
-               .roles(cinemaUser.getRole())
+               .withUsername(cinemaCoUser.getName())
+               .password(cinemaCoUser.getPassword())
+               .roles(cinemaCoUser.getRole())
 //               .authorities(cinemaUser.getAuthorities())
                .build();
 

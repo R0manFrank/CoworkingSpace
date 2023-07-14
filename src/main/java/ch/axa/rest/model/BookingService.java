@@ -1,6 +1,5 @@
 package ch.axa.rest.model;
 
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -47,34 +46,34 @@ public class BookingService {
     }
 
     public Integer getBookingCount(Long userId) {
-        Optional<User> optionalUser = userRepository.findById(userId);
+        Optional<CoUser> optionalUser = userRepository.findById(userId);
         if (optionalUser.isPresent()){
-            User user = optionalUser.get();
-            int count = user.getBookings().size();
+            CoUser coUser = optionalUser.get();
+            int count = coUser.getBookings().size();
             return count;
         }
         return null;
     }
 
     public List<Booking> getBookings(Long userId) {
-        Optional<User> optionalUser = userRepository.findById(userId);
+        Optional<CoUser> optionalUser = userRepository.findById(userId);
         if (optionalUser.isPresent()){
-            User user = optionalUser.get();
-            return user.getBookings();
+            CoUser coUser = optionalUser.get();
+            return coUser.getBookings();
         }
         return null;
     }
 
     public boolean cancelBooking(Long userId, Long bookingId) {
-        Optional<User> optionalUser = userRepository.findById(userId);
+        Optional<CoUser> optionalUser = userRepository.findById(userId);
         Optional<Booking> optionalBooking = bookingRepository.findById(bookingId);
         if (optionalUser.isPresent()){
             if (optionalBooking.isPresent()){
-                User user = optionalUser.get();
+                CoUser coUser = optionalUser.get();
                 Booking booking = optionalBooking.get();
-                user.getBookings().remove(booking);
+                coUser.getBookings().remove(booking);
                 bookingRepository.delete(booking);
-                changes = changes + ("Booking with ID " + bookingId + " was canceled by User " + user.getName() + " " + user.getLastname() + "\n");
+                changes = changes + ("Booking with ID " + bookingId + " was canceled by User " + coUser.getName() + " " + coUser.getLastname() + "\n");
                 return true;
             }
         }
@@ -104,8 +103,8 @@ public class BookingService {
             if (booking.getPartOfDay() != null){
                 dbBooking.setPartOfDay(booking.getPartOfDay());
             }
-            if (booking.getUser() != null){
-                dbBooking.setUser(booking.getUser());
+            if (booking.getCoUser() != null){
+                dbBooking.setCoUser(booking.getCoUser());
             }
             changes = changes + ("Admin edited Booking with ID " + bookingId + "\n");
             return dbBooking;

@@ -2,9 +2,8 @@ package ch.axa.rest;
 
 import ch.axa.rest.model.Booking;
 import ch.axa.rest.model.BookingRepository;
-import ch.axa.rest.model.User;
+import ch.axa.rest.model.CoUser;
 import ch.axa.rest.model.UserRepository;
-import ch.axa.rest.security.HashCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -26,36 +25,36 @@ public class RestApplication {
     @Bean
     public CommandLineRunner init(UserRepository userRepository, BookingRepository bookingRepository) {
         return (args) -> {
-            User user1 = new User();
-            user1.setName("John");
-            user1.setLastname("Doe");
-            user1.setEmail("john.doe@example.com");
-            user1.setPhonenumber("1234567890");
-            user1.setPassword("password");
-            user1.setRole("member");
+            CoUser coUser1 = new CoUser();
+            coUser1.setName("John");
+            coUser1.setLastname("Doe");
+            coUser1.setEmail("john.doe@example.com");
+            coUser1.setPhonenumber("1234567890");
+            coUser1.setPassword("password");
+            coUser1.setRole("member");
 
-            User user2 = new User();
-            user2.setName("Jane");
-            user2.setLastname("Smith");
-            user2.setEmail("jane.smith@example.com");
-            user2.setPhonenumber("0987654321");
-            user2.setPassword("password");
-            user2.setRole("member");
+            CoUser coUser2 = new CoUser();
+            coUser2.setName("Jane");
+            coUser2.setLastname("Smith");
+            coUser2.setEmail("jane.smith@example.com");
+            coUser2.setPhonenumber("0987654321");
+            coUser2.setPassword("password");
+            coUser2.setRole("member");
 
-            userRepository.save(user1);
-            userRepository.save(user2);
+            userRepository.save(coUser1);
+            userRepository.save(coUser2);
 
             Booking booking1 = new Booking();
             booking1.setDate(LocalDate.now());
             booking1.setPartOfDay("day");
             booking1.setStatus("pending");
-            booking1.setUser(user1);
+            booking1.setCoUser(coUser1);
 
             Booking booking2 = new Booking();
             booking2.setDate(LocalDate.now());
             booking2.setPartOfDay("morning");
             booking2.setStatus("accepted");
-            booking2.setUser(user2);
+            booking2.setCoUser(coUser2);
 
             bookingRepository.save(booking1);
             bookingRepository.save(booking2);

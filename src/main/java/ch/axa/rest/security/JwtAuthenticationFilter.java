@@ -1,6 +1,7 @@
 package ch.axa.rest.security;
 
 
+import ch.axa.rest.model.CoUser;
 import com.auth0.jwt.JWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
@@ -11,9 +12,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -103,11 +101,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         try {
             log.info("attemptAuthentication");
         //    AuthenticationManager authenticationManager1= SecurityContextHolder.getContext().getAuthentication();
-            ch.axa.rest.model.User user = new ObjectMapper().readValue(req.getInputStream(), ch.axa.rest.model.User.class);
+            CoUser coUser = new ObjectMapper().readValue(req.getInputStream(), CoUser.class);
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            user.getName(),
-                            user.getPassword(),
+                            coUser.getName(),
+                            coUser.getPassword(),
                             new ArrayList<>()));
 
         } catch (IOException e) {

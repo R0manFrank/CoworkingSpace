@@ -23,6 +23,6 @@ public class Booking {
     private String status;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "coUser_id")
+    private CoUser coUser;
 }

@@ -18,21 +18,21 @@ public class UserService {
         changes = "";
     }
 
-    public User registerUser(User user) {
-        user.setPassword(generateHashCode(user.getPassword()));
+    public CoUser registerUser(CoUser coUser) {
+        coUser.setPassword(generateHashCode(coUser.getPassword()));
         if (userRepository.findAll().size() <= 1){
-            user.setRole("admin");
+            coUser.setRole("admin");
         }
         else{
-            user.setRole("member");
+            coUser.setRole("member");
         }
-        userRepository.save(user);
-        changes = changes + ("Registered User " + user.getName() + " " + user.getLastname() + "\n");
-        return user;
+        userRepository.save(coUser);
+        changes = changes + ("Registered User " + coUser.getName() + " " + coUser.getLastname() + "\n");
+        return coUser;
     }
 
-    public boolean authenticateUser(User user) {
-        changes = changes + ("User " + user.getName() + " " + user.getLastname() + " logged in \n");
+    public boolean authenticateUser(CoUser coUser) {
+        changes = changes + ("User " + coUser.getName() + " " + coUser.getLastname() + " logged in \n");
         return true;
     }
 
@@ -44,35 +44,35 @@ public class UserService {
         return changes;
     }
 
-    public User createMember(User user) {
-        user.setPassword(generateHashCode("123456"));
-        userRepository.save(user);
-        changes = changes + ("Admin added User " + user.getName() + " " + user.getLastname() + "\n");
-        return user;
+    public CoUser createMember(CoUser coUser) {
+        coUser.setPassword(generateHashCode("123456"));
+        userRepository.save(coUser);
+        changes = changes + ("Admin added User " + coUser.getName() + " " + coUser.getLastname() + "\n");
+        return coUser;
     }
 
-    public User updateMember(Long userId, User updatedUser) {
-        Optional<User> optionalUser =  userRepository.findById(userId);
-        User responseUser = new User();
+    public CoUser updateMember(Long userId, CoUser updatedCoUser) {
+        Optional<CoUser> optionalUser =  userRepository.findById(userId);
+        CoUser responseCoUser = new CoUser();
         if (optionalUser.isPresent()){
-            User user = optionalUser.get();
-            User dbUser = optionalUser.get();
-            if (updatedUser.getName() != null){
-                user.setName(updatedUser.getName());
+            CoUser coUser = optionalUser.get();
+            CoUser dbCoUser = optionalUser.get();
+            if (updatedCoUser.getName() != null){
+                coUser.setName(updatedCoUser.getName());
             }
-            if (updatedUser.getLastname() != null){
-                user.setLastname(updatedUser.getLastname());
+            if (updatedCoUser.getLastname() != null){
+                coUser.setLastname(updatedCoUser.getLastname());
             }
-            if (updatedUser.getEmail() != null){
-                user.setEmail(updatedUser.getEmail());
+            if (updatedCoUser.getEmail() != null){
+                coUser.setEmail(updatedCoUser.getEmail());
             }
-            if (updatedUser.getPhonenumber() != null){
-                user.setPhonenumber(updatedUser.getPhonenumber());
+            if (updatedCoUser.getPhonenumber() != null){
+                coUser.setPhonenumber(updatedCoUser.getPhonenumber());
             }
-            responseUser = user;
+            responseCoUser = coUser;
         }
         changes = changes + ("Updated User with ID " + userId + "\n");
-        return responseUser;
+        return responseCoUser;
     }
 
     public boolean deleteMember(Long userId) {
@@ -81,13 +81,13 @@ public class UserService {
         return true;
     }
 
-    public User updatePhoneNumber(Long userId, String phoneNumber) {
-        Optional<User> optionalUser = userRepository.findById(userId);
+    public CoUser updatePhoneNumber(Long userId, String phoneNumber) {
+        Optional<CoUser> optionalUser = userRepository.findById(userId);
         if (optionalUser.isPresent()){
-            User user = optionalUser.get();
-            user.setPhonenumber(phoneNumber);
-            changes = changes + ("Updated phone number of User " + user.getName() + " " + user.getLastname() + "\n");
-            return user;
+            CoUser coUser = optionalUser.get();
+            coUser.setPhonenumber(phoneNumber);
+            changes = changes + ("Updated phone number of User " + coUser.getName() + " " + coUser.getLastname() + "\n");
+            return coUser;
         }
         else {
             return null;
