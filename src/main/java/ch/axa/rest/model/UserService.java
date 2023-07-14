@@ -19,6 +19,9 @@ public class UserService {
     }
 
     public CoUser registerUser(CoUser coUser) {
+        if (coUser.getName() == null || coUser.getLastname() == null || coUser.getEmail() == null || coUser.getPassword() == null){
+            return null;
+        }
         coUser.setPassword(generateHashCode(coUser.getPassword()));
         if (userRepository.findAll().size() <= 1){
             coUser.setRole("admin");
@@ -45,6 +48,9 @@ public class UserService {
     }
 
     public CoUser createMember(CoUser coUser) {
+        if (coUser.getName() == null || coUser.getLastname() == null || coUser.getEmail() == null || coUser.getPassword() == null){
+            return null;
+        }
         coUser.setPassword(generateHashCode("123456"));
         userRepository.save(coUser);
         changes = changes + ("Admin added User " + coUser.getName() + " " + coUser.getLastname() + "\n");
@@ -53,10 +59,9 @@ public class UserService {
 
     public CoUser updateMember(Long userId, CoUser updatedCoUser) {
         Optional<CoUser> optionalUser =  userRepository.findById(userId);
-        CoUser responseCoUser = new CoUser();
+        CoUser responseCoUser = null;
         if (optionalUser.isPresent()){
             CoUser coUser = optionalUser.get();
-            CoUser dbCoUser = optionalUser.get();
             if (updatedCoUser.getName() != null){
                 coUser.setName(updatedCoUser.getName());
             }

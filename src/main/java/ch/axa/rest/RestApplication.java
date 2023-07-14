@@ -31,7 +31,7 @@ public class RestApplication {
             coUser1.setEmail("john.doe@example.com");
             coUser1.setPhonenumber("1234567890");
             coUser1.setPassword("password");
-            coUser1.setRole("member");
+            coUser1.setRole("admin");
 
             CoUser coUser2 = new CoUser();
             coUser2.setName("Jane");

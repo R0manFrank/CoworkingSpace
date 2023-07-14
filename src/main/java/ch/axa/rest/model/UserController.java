@@ -46,7 +46,10 @@ public class UserController {
     @PostMapping("/admin/users")
     public ResponseEntity<CoUser> createMember(@RequestBody CoUser coUser) {
         CoUser createdMember = userService.createMember(coUser);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdMember);
+        if (createdMember != null){
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdMember);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
     @PutMapping("/admin/users/{userId}")

@@ -81,6 +81,9 @@ public class BookingService {
     }
 
     public Booking requestBooking(Booking booking) {
+        if (booking.getDate() == null || booking.getPartOfDay() == null){
+            return null;
+        }
         booking.setStatus("pending");
         bookingRepository.save(booking);
         changes = changes + ("Booking with ID " + booking.getId() + " was added for request \n");
@@ -88,6 +91,9 @@ public class BookingService {
     }
 
     public Booking createBooking(Booking booking) {
+        if (booking.getDate() == null || booking.getPartOfDay() == null){
+            return null;
+        }
         bookingRepository.save(booking);
         changes = changes + ("Admin created Booking with ID " + booking.getId() + "\n");
         return booking;

@@ -76,16 +76,22 @@ public class BookingController {
         }
     }
 
-    @PostMapping("/member/{userId}/bookings/create")
+    @PostMapping("/members/{userId}/bookings/create")
     public ResponseEntity<Booking> requestBooking(@RequestBody Booking booking) {
         Booking createdBooking = bookingService.requestBooking(booking);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdBooking);
+        if (createdBooking != null){
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdBooking);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
     @PostMapping("/admin/bookings")
     public ResponseEntity<Booking> createBooking(@RequestBody Booking booking) {
         Booking createdBooking = bookingService.createBooking(booking);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdBooking);
+        if (createdBooking != null){
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdBooking);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
     @PutMapping("/admin/bookings/{bookingId}")

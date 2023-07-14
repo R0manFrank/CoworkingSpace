@@ -20,10 +20,13 @@ public class CoUser {
 
     private String name;
     private String lastname;
+    @Column(unique = true)
     private String email;
     private String phonenumber;
     private String password;
     private String role;
+    private String salt;
+    private String token;
 
     @OneToMany(mappedBy = "coUser")
     private List<Booking> bookings;
